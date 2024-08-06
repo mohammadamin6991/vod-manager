@@ -1,0 +1,38 @@
+version: '3'
+
+services:
+  app:
+    build:
+      context: ..
+      dockerfile: .devcontainer/Dockerfile
+      args:
+        - BUILDKIT_INLINE_CACHE=1
+        - _DEV_CONTAINERS_BASE_IMAGE=dev_container_auto_added_stage_label
+    ports:
+      - 8000:8000
+    volumes:
+      - ..:/data
+    env_file:
+      - .env
+    command: sleep infinity
+
+  db:
+    image: mariadb
+    restart: always
+    environment:
+      MARIADB_ROOT_PASSWORD: 123456MaP$$
+      MARIADB_DATABASE: transcoder
+
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
+
+  redis:
+    image: redis
+    container_name: redis
+    command: redis-server --save 60 1 --loglevel warning
+    ports:
+    - 6379:6379

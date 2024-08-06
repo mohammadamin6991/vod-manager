@@ -1,0 +1,6 @@
+venv
+temp_media_files
+.DS_Store
+.k8s-*
+.docker-manifests
+.vscode

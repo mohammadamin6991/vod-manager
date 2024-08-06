@@ -1,0 +1,13 @@
+FROM python:3.10.4-bullseye
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
+
+RUN apt update && apt upgrade -y
+RUN apt install -y ffmpeg htop
+
+WORKDIR /code
+COPY requirements.txt /code/
+RUN pip install -r requirements.txt
+COPY . /code/
+
+CMD ["celery", "-A", "transcoder", "worker", "-l", "info", "--concurrency=1"]

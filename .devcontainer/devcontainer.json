@@ -1,0 +1,33 @@
+{
+	"name": "Python 3 - Debian",
+	"dockerComposeFile": "docker-compose.yml",
+	"service": "app",
+	"workspaceFolder": "/data",
+	"settings": {
+		"python.linting.enabled": true,
+		"python.linting.pylintEnabled": true,
+		"python.formatting.autopep8Path": "/usr/local/py-utils/bin/autopep8",
+		"python.formatting.blackPath": "/usr/local/py-utils/bin/black",
+		"python.formatting.yapfPath": "/usr/local/py-utils/bin/yapf",
+		"python.linting.banditPath": "/usr/local/py-utils/bin/bandit",
+		"python.linting.flake8Path": "/usr/local/py-utils/bin/flake8",
+		"python.linting.mypyPath": "/usr/local/py-utils/bin/mypy",
+		"python.linting.pycodestylePath": "/usr/local/py-utils/bin/pycodestyle",
+		"python.linting.pydocstylePath": "/usr/local/py-utils/bin/pydocstyle",
+		"python.linting.pylintPath": "/usr/local/py-utils/bin/pylint"
+	},
+	"postAttachCommand": "pip install -r /data/requirements.txt",
+	"extensions": [
+		"ms-python.python",
+		"thebarkman.vscode-djaneiro",
+		"KevinRose.vsc-python-indent",
+		"frhtylcn.pythonsnippets",
+		"njpwerner.autodocstring",
+		// "ms-python.vscode-pylance",
+		"HookyQR.beautify",
+		"aaron-bond.better-comments",
+		"ms-vsliveshare.vsliveshare",
+	],
+
+	"remoteUser": "vscode"
+}

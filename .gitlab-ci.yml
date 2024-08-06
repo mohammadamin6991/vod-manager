@@ -1,0 +1,28 @@
+image: docker:dind
+
+stages:
+  - build
+
+manager-build:
+  # Build Manager Image
+  stage: build
+  before_script:
+    - echo $CI_BUILD_TOKEN | docker login -u "$CI_REGISTRY_USER" --password-stdin $CI_REGISTRY
+
+  script:
+    - docker build --build-arg TARGETARCH=amd64 --build-arg TARGETVARIANT="" --pull -t "$CI_REGISTRY_IMAGE:manager-$CI_COMMIT_TAG" --file Dockerfile .
+    - docker push "$CI_REGISTRY_IMAGE:manager-$CI_COMMIT_TAG"
+  only:
+    - tags
+
+worker-build:
+  # Build Worker Image
+  stage: build
+  before_script:
+    - echo $CI_BUILD_TOKEN | docker login -u "$CI_REGISTRY_USER" --password-stdin $CI_REGISTRY
+
+  script:
+    - docker build --build-arg TARGETARCH=amd64 --build-arg TARGETVARIANT="" --pull -t "$CI_REGISTRY_IMAGE:worker-$CI_COMMIT_TAG" --file Dockerfile-Worker .
+    - docker push "$CI_REGISTRY_IMAGE:worker-$CI_COMMIT_TAG"
+  only:
+    - tags
